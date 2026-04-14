@@ -264,7 +264,7 @@ class WanLoopConfig:
     RETURN_TYPES = ("WAN_LOOP",)
     RETURN_NAMES = ("loop_config",)
     FUNCTION = "build"
-    CATEGORY = "video/wan_looper"
+    CATEGORY = "wan_looper"
 
     def build(self, prompt, frames, lora_high, lora_high_strength, lora_low, lora_low_strength,
               anchor_frame_offset, anchor_override=None):
@@ -336,7 +336,7 @@ class WanLoopPrep:
     RETURN_NAMES  = ("positive_out", "negative_out", "latent_out",
                      "model_high_out", "model_low_out", "loop_state")
     FUNCTION      = "prepare"
-    CATEGORY      = "video/wan_looper"
+    CATEGORY      = "wan_looper"
 
     def prepare(self, model_high, model_low, vae, clip, start_image, positive, negative,
                 width, height, loop_index, loop_config,
@@ -537,7 +537,7 @@ class WanLoopFinish:
     RETURN_NAMES  = ("prev_samples", "anchor_frame", "segment_frames",
                      "next_loop_state", "full_video_so_far", "used_prompts")
     FUNCTION      = "finish"
-    CATEGORY      = "video/wan_looper"
+    CATEGORY      = "wan_looper"
 
     def finish(self, sampled_latent, loop_state, overlap, is_final_loop):
 
@@ -797,7 +797,7 @@ class WanLooperCK:
     RETURN_TYPES  = ("IMAGE", "IMAGE", "STRING")
     RETURN_NAMES  = ("full_video", "last_anchor", "used_prompts")
     FUNCTION      = "generate"
-    CATEGORY      = "video/wan_looper"
+    CATEGORY      = "wan_looper"
 
     def generate(self,
                  model_high, model_low, vae, clip, start_image, positive, negative,
@@ -1130,7 +1130,7 @@ class WanLooperKSA:
     RETURN_TYPES  = ("IMAGE", "IMAGE", "STRING")
     RETURN_NAMES  = ("full_video", "last_anchor", "used_prompts")
     FUNCTION      = "generate"
-    CATEGORY      = "video/wan_looper"
+    CATEGORY      = "wan_looper"
 
     def generate(self,
                  model_high, model_low, vae, clip, clip_vision, start_image, positive, negative,

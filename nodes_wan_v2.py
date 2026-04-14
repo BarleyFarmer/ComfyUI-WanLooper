@@ -196,7 +196,7 @@ class LoopConfigWan:
     RETURN_TYPES  = ("WAN_LOOP_CONFIG",)
     RETURN_NAMES  = ("loop_config",)
     FUNCTION      = "build"
-    CATEGORY      = "video/wan_looper_v2"
+    CATEGORY      = "wan_looper/v2"
 
     def build(self, prompt, frames, model_high=None, model_low=None):
         return ({
@@ -299,7 +299,7 @@ class WanLooperNative:
     RETURN_TYPES  = ("IMAGE", "IMAGE", "STRING")
     RETURN_NAMES  = ("full_video", "last_anchor", "used_prompts")
     FUNCTION      = "generate"
-    CATEGORY      = "video/wan_looper_v2"
+    CATEGORY      = "wan_looper/v2"
 
     def generate(self,
                  model_high, model_low, vae, clip, clip_vision, start_image,
