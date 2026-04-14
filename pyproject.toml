@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-native-looper"
+description = "Multi-loop video generation with sharp output and character consistency"
+version = "1.0.0"
+license = "MIT"
+
+[project.urls]
+Repository = "https://github.com/YOUR_USERNAME/ComfyUI-NativeLooper"
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "Native Looper"
+Icon = ""
