@@ -1,0 +1,342 @@
+{
+  "last_node_id": 32,
+  "last_link_id": 118,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UnetLoaderGGUF",
+      "pos": [0, 0],
+      "size": {"0": 360, "1": 58},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [100], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "UnetLoaderGGUF"},
+      "widgets_values": ["wan2.2_i2v_14B_high_noise_Q5_K_M.gguf"]
+    },
+    {
+      "id": 2,
+      "type": "UnetLoaderGGUF",
+      "pos": [0, 120],
+      "size": {"0": 360, "1": 58},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [101], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "UnetLoaderGGUF"},
+      "widgets_values": ["wan2.2_i2v_14B_low_noise_Q5_K_M.gguf"]
+    },
+    {
+      "id": 3,
+      "type": "CLIPLoader",
+      "pos": [0, 240],
+      "size": {"0": 360, "1": 82},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "CLIP", "type": "CLIP", "links": [102, 103, 107], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "CLIPLoader"},
+      "widgets_values": ["umt5_xxl_fp8_e4m3fn_scaled.safetensors", "wan"]
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [0, 380],
+      "size": {"0": 360, "1": 58},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "VAE", "type": "VAE", "links": [106], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "VAELoader"},
+      "widgets_values": ["wan_2.1_vae.safetensors"]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [0, 490],
+      "size": {"0": 360, "1": 82},
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [108], "slot_index": 0},
+        {"name": "MASK", "type": "MASK", "links": [], "slot_index": 1}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["input.png", "image"]
+    },
+    {
+      "id": 6,
+      "type": "ModelSamplingSD3",
+      "pos": [420, 0],
+      "size": {"0": 315, "1": 82},
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 100, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [104], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "ModelSamplingSD3"},
+      "widgets_values": [4.0]
+    },
+    {
+      "id": 7,
+      "type": "ModelSamplingSD3",
+      "pos": [420, 140],
+      "size": {"0": 315, "1": 82},
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 101, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [105], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "ModelSamplingSD3"},
+      "widgets_values": [4.0]
+    },
+    {
+      "id": 8,
+      "type": "CLIPTextEncode",
+      "pos": [420, 280],
+      "size": {"0": 315, "1": 130},
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 102, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [109], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "widgets_values": ["a woman walks through a sunlit forest, cinematic motion, smooth camera movement"]
+    },
+    {
+      "id": 9,
+      "type": "CLIPTextEncode",
+      "pos": [420, 470],
+      "size": {"0": 315, "1": 130},
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 103, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [110], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "widgets_values": ["low quality, blurry, static, distortion, worst quality"]
+    },
+    {
+      "id": 10,
+      "type": "ClownOptions_ExtraOptions_Beta",
+      "pos": [420, 660],
+      "size": {"0": 315, "1": 100},
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "OPTIONS", "type": "OPTIONS", "links": [113], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "ClownOptions_ExtraOptions_Beta"},
+      "widgets_values": ["default_dtype=float32\nskip_final_model_call\n"]
+    },
+    {
+      "id": 11,
+      "type": "PrimitiveString",
+      "pos": [420, 820],
+      "size": {"0": 315, "1": 58},
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "STRING", "type": "STRING", "links": [111], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "PrimitiveString"},
+      "widgets_values": ["multistep/res_2m"]
+    },
+    {
+      "id": 12,
+      "type": "PrimitiveString",
+      "pos": [420, 940],
+      "size": {"0": 315, "1": 58},
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "STRING", "type": "STRING", "links": [112], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "PrimitiveString"},
+      "widgets_values": ["exponential/res_2s"]
+    },
+    {
+      "id": 13,
+      "type": "PrimitiveStringMultiline",
+      "pos": [420, 1060],
+      "size": {"0": 315, "1": 130},
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "STRING", "type": "STRING", "links": [114], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "PrimitiveStringMultiline"},
+      "widgets_values": ["photorealistic, sharp focus, high detail, cinematic quality, professional photography"]
+    },
+    {
+      "id": 15,
+      "type": "SVILoopConfig",
+      "pos": [800, 0],
+      "size": {"0": 380, "1": 270},
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "loop_config", "type": "SVI_LOOP", "links": [115], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "SVILoopConfig"},
+      "widgets_values": [
+        "a woman walks through a sunlit forest, she pauses and looks up at the light filtering through the leaves",
+        49,
+        "None",
+        0.8,
+        "None",
+        0.8,
+        -5
+      ]
+    },
+    {
+      "id": 20,
+      "type": "SVILooper",
+      "pos": [1240, 0],
+      "size": {"0": 400, "1": 560},
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "model_high",        "type": "MODEL",        "link": 104, "slot_index": 0},
+        {"name": "model_low",         "type": "MODEL",        "link": 105, "slot_index": 1},
+        {"name": "vae",               "type": "VAE",          "link": 106, "slot_index": 2},
+        {"name": "clip",              "type": "CLIP",         "link": 107, "slot_index": 3},
+        {"name": "start_image",       "type": "IMAGE",        "link": 108, "slot_index": 4},
+        {"name": "positive",          "type": "CONDITIONING", "link": 109, "slot_index": 5},
+        {"name": "negative",          "type": "CONDITIONING", "link": 110, "slot_index": 6},
+        {"name": "cs_sampler_primary","type": "STRING",       "link": 111, "slot_index": 7},
+        {"name": "cs_sampler_chain",  "type": "STRING",       "link": 112, "slot_index": 8},
+        {"name": "cs_options",        "type": "OPTIONS",      "link": 113, "slot_index": 9},
+        {"name": "refine_prompt",     "type": "STRING",       "link": 114, "slot_index": 10},
+        {"name": "loop_1",            "type": "SVI_LOOP",     "link": 115, "slot_index": 11}
+      ],
+      "outputs": [
+        {"name": "full_video",    "type": "IMAGE",  "links": [116], "slot_index": 0},
+        {"name": "used_prompts",  "type": "STRING", "links": [118], "slot_index": 1},
+        {"name": "final_anchor",  "type": "IMAGE",  "links": [117], "slot_index": 2}
+      ],
+      "properties": {"Node name for S&R": "SVILooper"},
+      "widgets_values": [480, 640, 8, 4, 12345, 0, 42]
+    },
+    {
+      "id": 30,
+      "type": "VHS_VideoCombine",
+      "pos": [1700, 0],
+      "size": {"0": 380, "1": 310},
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 116, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "Filenames", "type": "VHS_FILENAMES", "links": [], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "VHS_VideoCombine"},
+      "widgets_values": [16, 0, "svi_looper_test", "video/h264-mp4", false, true]
+    },
+    {
+      "id": 31,
+      "type": "PreviewImage",
+      "pos": [1700, 370],
+      "size": {"0": 315, "1": 270},
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 117, "slot_index": 0}
+      ],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewImage"},
+      "widgets_values": []
+    },
+    {
+      "id": 32,
+      "type": "ShowText|pysssss",
+      "pos": [1700, 700],
+      "size": {"0": 315, "1": 150},
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 118, "slot_index": 0}
+      ],
+      "outputs": [
+        {"name": "TEXT", "type": "STRING", "links": [], "slot_index": 0}
+      ],
+      "properties": {"Node name for S&R": "ShowText|pysssss"},
+      "widgets_values": [""]
+    }
+  ],
+  "links": [
+    [100, 1,  0,  6,  0, "MODEL"],
+    [101, 2,  0,  7,  0, "MODEL"],
+    [102, 3,  0,  8,  0, "CLIP"],
+    [103, 3,  0,  9,  0, "CLIP"],
+    [104, 6,  0, 20,  0, "MODEL"],
+    [105, 7,  0, 20,  1, "MODEL"],
+    [106, 4,  0, 20,  2, "VAE"],
+    [107, 3,  0, 20,  3, "CLIP"],
+    [108, 5,  0, 20,  4, "IMAGE"],
+    [109, 8,  0, 20,  5, "CONDITIONING"],
+    [110, 9,  0, 20,  6, "CONDITIONING"],
+    [111, 11, 0, 20,  7, "STRING"],
+    [112, 12, 0, 20,  8, "STRING"],
+    [113, 10, 0, 20,  9, "OPTIONS"],
+    [114, 13, 0, 20, 10, "STRING"],
+    [115, 15, 0, 20, 11, "SVI_LOOP"],
+    [116, 20, 0, 30,  0, "IMAGE"],
+    [117, 20, 2, 31,  0, "IMAGE"],
+    [118, 20, 1, 32,  0, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6,
+      "offset": [0, 0]
+    }
+  },
+  "version": 0.4
+}

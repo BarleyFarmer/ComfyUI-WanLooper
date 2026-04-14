@@ -1,0 +1,1371 @@
+{
+  "id": "90889dc2-e794-4422-add2-193c60e072b5",
+  "revision": 0,
+  "last_node_id": 33,
+  "last_link_id": 229,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UnetLoaderGGUF",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        360,
+        60
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            200
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-gguf",
+        "ver": "6ea2651e7df66d7585f6ffee804b20e92fb38b8a",
+        "Node name for S&R": "UnetLoaderGGUF"
+      },
+      "widgets_values": [
+        "Wan 2.2\\Wan2.2-I2V-A14B-HighNoise-Q5_K_M.gguf"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "UnetLoaderGGUF",
+      "pos": [
+        0,
+        120
+      ],
+      "size": [
+        360,
+        60
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            201
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-gguf",
+        "ver": "6ea2651e7df66d7585f6ffee804b20e92fb38b8a",
+        "Node name for S&R": "UnetLoaderGGUF"
+      },
+      "widgets_values": [
+        "Wan 2.2\\Wan2.2-I2V-A14B-LowNoise-Q5_K_M.gguf"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ModelSamplingSD3",
+      "pos": [
+        420,
+        0
+      ],
+      "size": [
+        330,
+        90
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 200
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            202
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ModelSamplingSD3",
+      "pos": [
+        420,
+        150
+      ],
+      "size": [
+        330,
+        90
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 201
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            203
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        4
+      ]
+    },
+    {
+      "id": 5,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        300
+      ],
+      "size": [
+        360,
+        120
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 0,
+          "links": [
+            204,
+            205,
+            206
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "wan",
+        "default"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        450
+      ],
+      "size": [
+        360,
+        60
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 0,
+          "links": [
+            207
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "wan_2.1_vae.safetensors"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        540
+      ],
+      "size": [
+        360,
+        120
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            208
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "input.png",
+        "image"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "CLIPTextEncode",
+      "pos": [
+        420,
+        300
+      ],
+      "size": [
+        330,
+        150
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 204
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            209
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "a woman walks through a sunlit forest, cinematic motion"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "CLIPTextEncode",
+      "pos": [
+        420,
+        480
+      ],
+      "size": [
+        330,
+        150
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 205
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            210
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "low quality, blurry, static, distortion"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "ClownOptions_ExtraOptions_Beta",
+      "pos": [
+        960,
+        510
+      ],
+      "size": [
+        330,
+        120
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "options",
+          "shape": 7,
+          "type": "OPTIONS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "options",
+          "type": "OPTIONS",
+          "slot_index": 0,
+          "links": [
+            211
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "RES4LYF",
+        "ver": "0dc91c00c4c3fb38e7874fcd7a2a327765e8882c",
+        "Node name for S&R": "ClownOptions_ExtraOptions_Beta"
+      },
+      "widgets_values": [
+        "default_dtype=float32\nskip_final_model_call\n"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "Note",
+      "pos": [
+        1770,
+        390
+      ],
+      "size": [
+        390,
+        330
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": "anchor_frame → WaveSpeedAIPredictor (id 25)\nIn a multi-loop workflow, WaveSpeed output\nwires to SVILoopPrep_{N+1}.refined_anchor\n(slot 9) and SVILoopFinish.next_loop_state\nwires to SVILoopPrep_{N+1}.prev_loop_state\n(slot 8)."
+      },
+      "widgets_values": [
+        "anchor_frame → WaveSpeedAIPredictor (id 25)\nIn a multi-loop workflow, WaveSpeed output\nwires to SVILoopPrep_{N+1}.refined_anchor\n(slot 9) and SVILoopFinish.next_loop_state\nwires to SVILoopPrep_{N+1}.prev_loop_state\n(slot 8)."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 20,
+      "type": "SVILoopConfig",
+      "pos": [
+        360,
+        780
+      ],
+      "size": [
+        360,
+        270
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anchor_override",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "loop_config",
+          "type": "SVI_LOOP",
+          "slot_index": 0,
+          "links": [
+            213
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SVILoopConfig"
+      },
+      "widgets_values": [
+        "a woman walks through a sunlit forest, she pauses and looks up",
+        49,
+        "None",
+        0.8,
+        "None",
+        0.8,
+        -5
+      ]
+    },
+    {
+      "id": 21,
+      "type": "SVILoopPrep",
+      "pos": [
+        810,
+        0
+      ],
+      "size": [
+        360,
+        420
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_high",
+          "type": "MODEL",
+          "link": 202
+        },
+        {
+          "name": "model_low",
+          "type": "MODEL",
+          "link": 203
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 207
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 206
+        },
+        {
+          "name": "start_image",
+          "type": "IMAGE",
+          "link": 208
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 209
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 210
+        },
+        {
+          "name": "loop_config",
+          "type": "SVI_LOOP",
+          "link": 213
+        },
+        {
+          "name": "prev_loop_state",
+          "shape": 7,
+          "type": "SVI_LOOP_STATE",
+          "link": null
+        },
+        {
+          "name": "refined_anchor",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive_out",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            214
+          ]
+        },
+        {
+          "name": "negative_out",
+          "type": "CONDITIONING",
+          "slot_index": 1,
+          "links": [
+            215
+          ]
+        },
+        {
+          "name": "latent_out",
+          "type": "LATENT",
+          "slot_index": 2,
+          "links": [
+            216
+          ]
+        },
+        {
+          "name": "model_high_out",
+          "type": "MODEL",
+          "slot_index": 3,
+          "links": [
+            217
+          ]
+        },
+        {
+          "name": "model_low_out",
+          "type": "MODEL",
+          "slot_index": 4,
+          "links": [
+            218
+          ]
+        },
+        {
+          "name": "loop_state",
+          "type": "SVI_LOOP_STATE",
+          "slot_index": 5,
+          "links": [
+            219
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SVILoopPrep"
+      },
+      "widgets_values": [
+        480,
+        640,
+        0
+      ]
+    },
+    {
+      "id": 22,
+      "type": "ClownsharKSampler_Beta",
+      "pos": [
+        1260,
+        -120
+      ],
+      "size": [
+        390,
+        450
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "shape": 7,
+          "type": "MODEL",
+          "link": 217
+        },
+        {
+          "name": "positive",
+          "shape": 7,
+          "type": "CONDITIONING",
+          "link": 214
+        },
+        {
+          "name": "negative",
+          "shape": 7,
+          "type": "CONDITIONING",
+          "link": 215
+        },
+        {
+          "name": "latent_image",
+          "shape": 7,
+          "type": "LATENT",
+          "link": 216
+        },
+        {
+          "name": "sigmas",
+          "shape": 7,
+          "type": "SIGMAS",
+          "link": null
+        },
+        {
+          "name": "guides",
+          "shape": 7,
+          "type": "GUIDES",
+          "link": null
+        },
+        {
+          "name": "options",
+          "shape": 7,
+          "type": "OPTIONS",
+          "link": 211
+        },
+        {
+          "name": "options 2",
+          "type": "OPTIONS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            220
+          ]
+        },
+        {
+          "name": "denoised",
+          "type": "LATENT",
+          "slot_index": 1,
+          "links": []
+        },
+        {
+          "name": "options",
+          "type": "OPTIONS",
+          "slot_index": 2,
+          "links": [
+            228
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "RES4LYF",
+        "ver": "0dc91c00c4c3fb38e7874fcd7a2a327765e8882c",
+        "Node name for S&R": "ClownsharKSampler_Beta"
+      },
+      "widgets_values": [
+        0.5,
+        "multistep/res_2m",
+        "beta57",
+        8,
+        4,
+        1.0,
+        1.0,
+        12345,
+        "fixed",
+        "standard",
+        true
+      ]
+    },
+    {
+      "id": 23,
+      "type": "ClownsharkChainsampler_Beta",
+      "pos": [
+        1260,
+        390
+      ],
+      "size": [
+        390,
+        330
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "shape": 7,
+          "type": "MODEL",
+          "link": 218
+        },
+        {
+          "name": "positive",
+          "shape": 7,
+          "type": "CONDITIONING",
+          "link": null
+        },
+        {
+          "name": "negative",
+          "shape": 7,
+          "type": "CONDITIONING",
+          "link": null
+        },
+        {
+          "name": "sigmas",
+          "shape": 7,
+          "type": "SIGMAS",
+          "link": null
+        },
+        {
+          "name": "latent_image",
+          "shape": 7,
+          "type": "LATENT",
+          "link": 220
+        },
+        {
+          "name": "guides",
+          "shape": 7,
+          "type": "GUIDES",
+          "link": null
+        },
+        {
+          "name": "options",
+          "shape": 7,
+          "type": "OPTIONS",
+          "link": 228
+        },
+        {
+          "name": "options 2",
+          "type": "OPTIONS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": []
+        },
+        {
+          "name": "denoised",
+          "type": "LATENT",
+          "slot_index": 1,
+          "links": [
+            229
+          ]
+        },
+        {
+          "name": "options",
+          "type": "OPTIONS",
+          "slot_index": 2,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "RES4LYF",
+        "ver": "0dc91c00c4c3fb38e7874fcd7a2a327765e8882c",
+        "Node name for S&R": "ClownsharkChainsampler_Beta"
+      },
+      "widgets_values": [
+        0.5,
+        "exponential/res_2s",
+        -1,
+        1.0,
+        "resample",
+        true
+      ]
+    },
+    {
+      "id": 24,
+      "type": "SVILoopFinish",
+      "pos": [
+        1800,
+        -30
+      ],
+      "size": [
+        390,
+        300
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sampled_latent",
+          "type": "LATENT",
+          "link": 229
+        },
+        {
+          "name": "loop_state",
+          "type": "SVI_LOOP_STATE",
+          "link": 219
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prev_samples",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": []
+        },
+        {
+          "name": "anchor_frame",
+          "type": "IMAGE",
+          "slot_index": 1,
+          "links": [
+            222,
+            227
+          ]
+        },
+        {
+          "name": "segment_frames",
+          "type": "IMAGE",
+          "slot_index": 2,
+          "links": [
+            223
+          ]
+        },
+        {
+          "name": "next_loop_state",
+          "type": "SVI_LOOP_STATE",
+          "slot_index": 3,
+          "links": []
+        },
+        {
+          "name": "full_video_so_far",
+          "type": "IMAGE",
+          "slot_index": 4,
+          "links": [
+            224
+          ]
+        },
+        {
+          "name": "used_prompts",
+          "type": "STRING",
+          "slot_index": 5,
+          "links": [
+            225
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SVILoopFinish"
+      },
+      "widgets_values": [
+        0,
+        true
+      ]
+    },
+    {
+      "id": 25,
+      "type": "WaveSpeedAIPredictor",
+      "pos": [
+        2310,
+        -330
+      ],
+      "size": [
+        800,
+        500
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 222
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 226
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_url",
+          "type": "*",
+          "slot_index": 0,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "wavespeed-comfyui",
+        "ver": "ff4325a6d3b98340ff15c42f3259e7433b3b0ee5",
+        "Node name for S&R": "WaveSpeedAIPredictor"
+      },
+      "widgets_values": [
+        "",
+        "{}",
+        "{}",
+        "{}"
+      ],
+      "wavespeed": {
+        "modelId": "",
+        "apiPath": "",
+        "category": "all",
+        "parameterValues": {},
+        "requestJsonValue": "{}",
+        "savedInputs": []
+      }
+    },
+    {
+      "id": 26,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        1710,
+        -240
+      ],
+      "size": [
+        330,
+        150
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            226
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "photorealistic, sharp focus, high detail, cinematic quality"
+      ]
+    },
+    {
+      "id": 30,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        3210,
+        390
+      ],
+      "size": [
+        390,
+        360
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 224
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "slot_index": 0,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "2984ec4c4b93292421888f38db74a5e8802a8ff8",
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "video\\svi_looper_test_v2",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      }
+    },
+    {
+      "id": 31,
+      "type": "PreviewImage",
+      "pos": [
+        2430,
+        870
+      ],
+      "size": [
+        330,
+        270
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 227
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 32,
+      "type": "PreviewImage",
+      "pos": [
+        2430,
+        1200
+      ],
+      "size": [
+        330,
+        270
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 223
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 33,
+      "type": "ShowText|pysssss",
+      "pos": [
+        2430,
+        1530
+      ],
+      "size": [
+        330,
+        150
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 225
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "shape": 6,
+          "type": "STRING",
+          "slot_index": 0,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "1.2.5",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      200,
+      1,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      201,
+      2,
+      0,
+      4,
+      0,
+      "MODEL"
+    ],
+    [
+      202,
+      3,
+      0,
+      21,
+      0,
+      "MODEL"
+    ],
+    [
+      203,
+      4,
+      0,
+      21,
+      1,
+      "MODEL"
+    ],
+    [
+      204,
+      5,
+      0,
+      8,
+      0,
+      "CLIP"
+    ],
+    [
+      205,
+      5,
+      0,
+      9,
+      0,
+      "CLIP"
+    ],
+    [
+      206,
+      5,
+      0,
+      21,
+      3,
+      "CLIP"
+    ],
+    [
+      207,
+      6,
+      0,
+      21,
+      2,
+      "VAE"
+    ],
+    [
+      208,
+      7,
+      0,
+      21,
+      4,
+      "IMAGE"
+    ],
+    [
+      209,
+      8,
+      0,
+      21,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      210,
+      9,
+      0,
+      21,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      211,
+      10,
+      0,
+      22,
+      6,
+      "OPTIONS"
+    ],
+    [
+      213,
+      20,
+      0,
+      21,
+      7,
+      "SVI_LOOP"
+    ],
+    [
+      214,
+      21,
+      0,
+      22,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      215,
+      21,
+      1,
+      22,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      216,
+      21,
+      2,
+      22,
+      3,
+      "LATENT"
+    ],
+    [
+      217,
+      21,
+      3,
+      22,
+      0,
+      "MODEL"
+    ],
+    [
+      218,
+      21,
+      4,
+      23,
+      0,
+      "MODEL"
+    ],
+    [
+      219,
+      21,
+      5,
+      24,
+      1,
+      "SVI_LOOP_STATE"
+    ],
+    [
+      220,
+      22,
+      0,
+      23,
+      4,
+      "LATENT"
+    ],
+    [
+      222,
+      24,
+      1,
+      25,
+      0,
+      "IMAGE"
+    ],
+    [
+      223,
+      24,
+      2,
+      32,
+      0,
+      "IMAGE"
+    ],
+    [
+      224,
+      24,
+      4,
+      30,
+      0,
+      "IMAGE"
+    ],
+    [
+      225,
+      24,
+      5,
+      33,
+      0,
+      "STRING"
+    ],
+    [
+      226,
+      26,
+      0,
+      25,
+      1,
+      "STRING"
+    ],
+    [
+      227,
+      24,
+      1,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      228,
+      22,
+      2,
+      23,
+      6,
+      "OPTIONS"
+    ],
+    [
+      229,
+      23,
+      1,
+      24,
+      0,
+      "LATENT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.45454545454545536,
+      "offset": [
+        329.47010450997533,
+        647.4580988523215
+      ]
+    },
+    "frontendVersion": "1.42.10",
+    "VHS_latentpreview": true,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": false,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
