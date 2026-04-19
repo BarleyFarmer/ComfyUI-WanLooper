@@ -1185,7 +1185,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "alibaba_wan-2-6_image-edit_ea6212494d5a4fa3b632464399b56dd1_0.png",
+        "example_start_image.png",
         "image"
       ]
     },
@@ -1198,7 +1198,7 @@
       ],
       "size": [
         390,
-        1337.3333333333333
+        1350
       ],
       "flags": {},
       "order": 22,
@@ -1606,10 +1606,10 @@
   "extra": {
     "ue_links": [],
     "ds": {
-      "scale": 0.22943463703995762,
+      "scale": 0.2776159108183492,
       "offset": [
-        3959.282544293832,
-        2687.4141435363745
+        3594.7894496522235,
+        2210.712943096539
       ]
     },
     "links_added_by_ue": [],
