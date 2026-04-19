@@ -1,6 +1,10 @@
 MIT License
 
-Copyright (c) 2026
+Copyright (c) 2026 BarleyFarmer
+
+This project is a derivative work based on ComfyUI-LooperNode by masteroleary
+(https://github.com/masteroleary/ComfyUI-LooperNode), also MIT licensed:
+  Copyright (c) 2026 masteroleary
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
