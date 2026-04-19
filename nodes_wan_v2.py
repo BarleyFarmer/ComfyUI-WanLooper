@@ -654,7 +654,13 @@ class WanLooperNative:
             ref_mean = ref_std = None
 
         # ── State ────────────────────────────────────────────────────────────
-        segment_dir         = tempfile.mkdtemp(prefix="wan_native_")
+        try:
+            comfy_temp = folder_paths.get_temp_directory()
+            os.makedirs(comfy_temp, exist_ok=True)
+            segment_dir = tempfile.mkdtemp(prefix="wan_native_", dir=comfy_temp)
+        except (AttributeError, OSError):
+            segment_dir = tempfile.mkdtemp(prefix="wan_native_")
+        print(f"[WanLooperNative] Segment temp dir: {segment_dir}")
         segment_paths       = []
         all_segment_prompts_log = []
         prev_decoded        = None
