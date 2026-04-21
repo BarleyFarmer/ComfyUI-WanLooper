@@ -1,191 +1,496 @@
-# SVI Looper Native — Settings Reference
+# SVI Looper Native Reference
 
-## Node: SVI Looper Native (`SVILooperNative`)
+This document is the current reference for the SVI path in this repo. It is based on the live implementation in `nodes_wan_v2.py`, not on older design briefs.
 
-Multi-segment SVI video looper using WAN 2.2 dual high/low noise models with temporal continuity via `prev_samples`.
+The main shipping nodes are:
 
----
+- `Wan Looper SVI` (`WanLooperNative`; legacy alias `SVILooperNative`)
+- `Wan Loop Config SVI` (`LoopConfigWan`; legacy alias `LoopConfigSVI`)
 
-## Required Inputs
+Historical briefs in `docs/briefs/` are useful for design history and audit context, but several of them describe earlier interfaces or bugs that have since changed.
 
-### `model_high` / `model_low` (MODEL)
-The high-noise and low-noise WAN 2.2 I2V models. These should arrive fully patched from upstream:
+## What the node does
 
-**Expected chain per model:**
-```
-UnetLoaderGGUF → SVI Pro LoRA → LightX2V LoRA → ModelSamplingSD3 (shift) → model_high/low
-```
+`Wan Looper SVI` runs a multi-segment WAN 2.2 image-to-video chain inside one node. Each segment:
 
-Shift values: 3.5 is a good starting point for both. Range 3.0–4.0. Higher values increase noise structure but can cause artifacts with distilled LoRAs above 4.0.
+- chooses an anchor image
+- encodes that anchor through the VAE
+- encodes the segment prompt through the text encoder
+- calls KJNodes' real SVI conditioning path with `prev_samples`
+- samples with the high-noise model first and the low-noise model second
+- decodes the result
+- extracts an anchor frame for later segments
+- optionally trims and overlap-blends it into the running sequence
 
-### `vae` (VAE)
-`wan_2.1_vae.safetensors`. Used for both encoding anchor frames (image→latent) and decoding generated latents (latent→frames).
+The implementation is deliberately policy-driven. The key behavior knobs are:
 
-### `clip` (CLIP)
-`umt5_xxl_fp8_e4m3fn_scaled.safetensors`. Used for encoding per-segment text prompts.
+- `anchor_mode`
+- `stitch_mode`
+- `seed_mode`
+- `startup_trim`
+- `overlap`
+- `keyframe_schedule`
 
-### `clip_vision` (CLIP_VISION)
-`clip_vision_h.safetensors`. Currently reserved for future use (Phase 3). Connect it but it is not actively used in the SVI conditioning path — image conditioning comes through VAE-encoded `anchor_samples` instead.
+## Required inputs
 
-### `start_image` (IMAGE)
-The first frame of the video. Resize to target resolution upstream (e.g., via `ImageResizeKJv2`). This image seeds segment 1's generation and establishes the reference for color drift correction.
+### `model_high` / `model_low` (`MODEL`)
 
-### `width` / `height` (INT)
-Output resolution. Must be multiples of 16. Default: 480×640 (portrait 3:4).
+Global high-noise and low-noise models. These are the default models for every segment unless a `Wan Loop Config SVI` node overrides them for a specific segment.
 
-Common portrait resolutions:
-- 480×640 (base)
-- 512×688
-- 672×896
-- 960×1280
+The looper expects fully prepared models. Any LoRA stack, shift node, or other model patching should happen upstream.
 
-### `steps` (INT, default 8)
-Total denoising steps per segment. With LightX2V distillation LoRAs, 8–10 steps is the sweet spot. Without distillation, use 20+.
+### `vae` (`VAE`)
 
-### `split_step` (INT, default 3)
-The step index where the high-noise model hands off to the low-noise model. Steps 0 through `split_step - 1` use the high model; steps `split_step` through `steps - 1` use the low model.
+Used twice:
 
-**How it works:**
-- `BasicScheduler` generates the full sigma schedule from the high model
-- `SplitSigmas` splits at this step index
-- High model gets `sigmas[:split_step+1]` (includes endpoints)
-- Low model gets `sigmas[split_step:]` (continues from split point)
+- to encode the chosen anchor image into `anchor_samples`
+- to decode each sampled segment back to frames
 
-**Tuning:** With 8 total steps, split at 2–4. Higher split = more steps on high model (more structural work), fewer on low (less refinement). Split at 3 is a good starting point.
+### `clip` (`CLIP`)
 
-### `cfg` (FLOAT, default 1.0)
-Classifier-free guidance scale. With SVI Pro LoRAs, keep at 1.0. Only increase (3.0–5.0) if running without SVI Pro.
+Used to encode the positive and negative prompts for each segment.
 
-### `sampler_name` (combo)
-The sampling algorithm. Common choices:
-- `euler` — fast, reliable, works well with LightX2V at low step counts
-- `dpmpp_2m_sde` — higher quality at higher step counts (20+), not ideal for 8 steps
+### `clip_vision` (`CLIP_VISION`)
 
-### `scheduler` (combo)
-Sigma schedule distribution. Common choices:
-- `simple` — linear sigma spacing, works with LightX2V
-- `beta57` — optimized for WAN 2.2 (alpha=0.5, beta=0.7), requires RES4LYF. Better quality but only available if RES4LYF loads before this node registers
-- `normal` — Gaussian-weighted spacing
+Accepted for workflow compatibility but currently unused in the actual SVI conditioning path. Image conditioning comes from the VAE-encoded anchor image, not CLIP Vision.
 
-### `seed` (INT)
-Base seed. Incremented by +1 for each subsequent segment.
+### `start_image` (`IMAGE`)
 
----
+The initial anchor image for the chain. The node resizes it internally to the requested `width` and `height`.
 
-## Segment Transition Settings
+This image is always used for segment 1. After that, later segments may keep using it or switch to extracted anchors depending on `anchor_mode` and any per-segment `anchor_image` overrides.
 
-### `overlap` (INT, default 3)
-Number of frames to crossfade between consecutive segments. The tail of segment N and the head of segment N+1 are blended together over this many frames.
+### `width` / `height` (`INT`)
 
-- `0` = hard cut (no blending)
-- `3` = subtle transition (recommended)
-- `5` = longer blend (may show ghosting if segments diverge significantly)
+Output size for generated segments and prepared anchors.
 
-**How it works with trimming:** Each segment is first trimmed to the anchor point (see `anchor_frame_offset`). Then the overlap zone is blended between the trimmed tail of the previous segment and the head of the current segment. The previous segment's saved file is re-written with its last `overlap` frames removed, and the current segment's saved file starts with the blended frames.
+Defaults:
 
-### `anchor_frame_offset` (INT, default -5)
-Which frame from the end of each segment to extract as the anchor (start image for the next segment). Negative values count from the end.
+- `width = 480`
+- `height = 640`
 
-**How it works:**
-```
-49-frame segment, anchor_frame_offset = -5:
-  Frame 0 ─────────────────────── Frame 48
-                              ↑
-                         Frame 44 = anchor
-                              ↓
-              Segment trimmed to frames 0-44 (45 frames)
-              Anchor frame → color corrected → seeds next segment
-```
+Both must be multiples of 16.
 
-**Why not use the last frame?** The final frames of a WAN generation tend to have:
-- Motion blur / deformation
-- Quality drop-off
-- Temporal artifacts
+### `steps` (`INT`)
 
-Pulling from a few frames earlier gives a cleaner, more stable anchor. Values of -3 to -7 work well. More negative = earlier frame = more stable but more content trimmed from each segment.
+Total sampler steps per segment across both model passes.
 
-**Frame count math for a 3-segment run:**
-```
-Segment 1: 49 frames generated → trimmed to 45 (anchor at frame 44)
-Segment 2: 49 frames generated → trimmed to 45
-Segment 3: 49 frames generated → trimmed to 45
+Default:
 
-With overlap=3:
-Segment 1: 45 - 3 = 42 frames saved (tail removed for blend)
-Segment 2: 3 (blended) + 42 (unique) = 45 saved, then - 3 for next overlap = 42 saved
-Segment 3: 3 (blended) + 42 (unique) = 45 saved (last segment, no tail removal)
+- `steps = 8`
 
-Total: 42 + 42 + 45 = 129 frames
-```
+### `split_step` (`INT`)
 
-### `overlap_mode` (combo, default "ease_in_out")
-Blending curve for the overlap zone:
-- `ease_in_out` — smooth S-curve (3t² - 2t³). Recommended. Natural-looking transition.
-- `linear_blend` — straight linear interpolation. Simpler but can look mechanical.
-- `filmic_crossfade` — blends in linear light space (gamma 2.2). Better color accuracy during blend.
-- `cut` — no blending at all, just hard concatenation.
+The split point between the high-noise and low-noise passes.
 
-### `overlap_side` (combo, default "source")
-Which segment fades during the blend:
-- `source` — previous segment fades out, new segment fades in. This is the natural forward-flow direction. **Use this.**
-- `new_images` — reversed. Rarely useful.
+Default:
 
----
+- `split_step = 3`
 
-## SVI-Specific Settings
+The node builds one sigma schedule, then splits it so:
 
-### `color_correction` (BOOLEAN, default True)
-Normalizes each anchor frame's color statistics (per-channel mean and std) back to the original start image's statistics. Prevents progressive color drift (sepia shift, desaturation) across many segments.
+- the high model runs the early portion
+- the low model runs the later portion
 
-**How it works:**
-1. Before the loop starts, compute `ref_mean` and `ref_std` from the original `start_image`
-2. After each anchor extraction, normalize: `anchor = ((anchor - anchor_mean) / anchor_std) * ref_std + ref_mean`
-3. Clamp to [0, 1]
+### `cfg` (`FLOAT`)
 
-Negligible performance cost (milliseconds per frame). Disable if you want the video's color to evolve naturally over segments (e.g., sunset scene where lighting intentionally shifts).
+CFG strength used in both scheduled guiders.
 
----
+Default:
 
-## Optional Inputs
+- `cfg = 1.0`
 
-### `positive_prompt` / `negative_prompt` (STRING, forceInput)
-Global fallback prompts. If a `SVI Loop Config` node has an empty prompt, the global `positive_prompt` is used. The `negative_prompt` applies to all segments.
+### `sampler_name` / `scheduler`
 
-### `loop_1` through `loop_10` (SVI_LOOP_CONFIG)
-Per-segment configuration from `SVI Loop Config` companion nodes. Only connected configs are executed — unconnected slots are skipped.
+Sampler and scheduler choices used for every segment. The node does not impose special policy here beyond reusing the same choices across the run.
 
----
+### `initial_seed` (`INT`)
+
+Seed for segment 1.
+
+Default:
+
+- `initial_seed = 0`
+
+How later segments use seeds depends on `seed_mode`.
+
+## Segment policy inputs
+
+### `seed_mode`
+
+Options:
+
+- `fixed`
+- `randomize`
+
+Default:
+
+- `fixed`
+
+Current behavior:
+
+- `fixed`: every segment uses `initial_seed`
+- `randomize`: segment 1 uses `initial_seed`, each later segment gets a fresh random 64-bit seed
+
+Important history:
+
+- older briefs mention `increment_per_segment`
+- that mode was removed after audit because it caused compounding identity drift relative to the reference workflow
+
+### `anchor_mode`
+
+Options:
+
+- `keyframe_schedule`
+- `fixed_initial`
+- `dynamic_every_segment`
+
+Default:
+
+- `fixed_initial`
+
+This setting controls which anchor image is used for segments that do not have an explicit per-segment `anchor_image`.
+
+#### `fixed_initial`
+
+Every segment without an explicit override uses the resized `start_image`.
+
+Effects:
+
+- segment 1 uses `start_image`
+- segment 2 also uses `start_image`
+- segment 3 also uses `start_image`
+- extracted anchors are still computed and returned, but they do not automatically become the next segment's anchor
+
+This is the most conservative mode and is the current default.
+
+#### `dynamic_every_segment`
+
+Segment 1 uses `start_image`. Segment 2 onward uses the most recently extracted anchor frame from the previous segment.
+
+Effects:
+
+- segment 1 anchor source: `start_image`
+- segment 2 anchor source: extracted anchor from segment 1
+- segment 3 anchor source: extracted anchor from segment 2
+
+Use this when you want a true rolling-anchor chain.
+
+#### `keyframe_schedule`
+
+The node maintains a scheduled anchor image. It starts as `start_image` and only updates when a segment id is listed in `keyframe_schedule`, or when a segment provides an explicit `anchor_image`.
+
+Effects:
+
+- all segments use the current scheduled anchor
+- extracted anchors do not automatically replace it every segment
+- only scheduled refresh points promote a newly extracted anchor into future use
+
+This is the mode to use when you want anchor persistence across several segments, then a deliberate refresh.
+
+### `keyframe_schedule`
+
+Optional string input used only with `anchor_mode = keyframe_schedule`.
+
+Examples:
+
+- `3,6,9`
+- `4-6`
+- `3, 5, 8-10`
+
+Meaning:
+
+- if segment 3 is listed, the anchor extracted from segment 3 becomes the scheduled anchor for segment 4 and later
+- if segment 6 is listed, the anchor extracted from segment 6 becomes the scheduled anchor for segment 7 and later
+
+### `stitch_mode`
+
+Options:
+
+- `workflow_style`
+- `trim_to_anchor`
+
+Default:
+
+- `workflow_style`
+
+This setting decides how much of each decoded segment is eligible for stitching.
+
+#### `workflow_style`
+
+Keeps the full decoded segment before any `startup_trim` or overlap processing.
+
+#### `trim_to_anchor`
+
+Trims each segment to `decoded[:anchor_idx + 1]` before later stitch steps. This means frames after the extracted anchor are discarded.
+
+This is the closest mode to "make the extracted anchor the true segment endpoint."
+
+### `anchor_frame_offset`
+
+Default:
+
+- `-5`
+
+Range:
+
+- `-50` to `-1`
+
+The extracted anchor frame index is computed from the decoded segment length plus this offset.
+
+Examples:
+
+- `-1`: use the last frame
+- `-5`: use the fifth frame from the end
+
+In practice, `-5` is a sensible default because it avoids the noisiest end-of-segment frames.
+
+### `overlap`
+
+Default:
+
+- `5`
+
+Number of frames used for overlap stitching between the previous segment and the current segment.
+
+Behavior:
+
+- `0`: no blend, hard join
+- `> 0`: use KJNodes' overlap helper unless `overlap_mode = cut`
+
+### `startup_trim`
+
+Default:
+
+- `0`
+
+For segments after the first, remove this many leading frames from the current segment before overlap stitching.
+
+Important ordering:
+
+1. decode segment
+2. optionally trim to anchor if `stitch_mode = trim_to_anchor`
+3. apply `startup_trim` for segments after the first
+4. perform overlap stitching if enabled
+
+This means `startup_trim` affects what enters the overlap blend.
+
+### `overlap_mode`
+
+Options:
+
+- `linear_blend`
+- `ease_in_out`
+- `filmic_crossfade`
+- `cut`
+
+Default:
+
+- `linear_blend`
+
+Special case:
+
+- `cut` bypasses blend behavior even if `overlap > 0`
+
+### `overlap_side`
+
+Options:
+
+- `source`
+- `new_images`
+
+Default:
+
+- `source`
+
+Passed directly into the KJ overlap helper to determine seam directionality.
+
+### `color_correction`
+
+Default:
+
+- `False`
+
+If enabled, the extracted anchor frame is normalized back toward the color statistics of the resized `start_image`.
+
+This happens after anchor extraction and before the anchor is stored as:
+
+- `last_extracted_anchor`
+- `dynamic_anchor_image`
+- `scheduled_anchor_image` when a scheduled refresh occurs
+
+## Optional prompt and segment inputs
+
+### `positive_prompt`
+
+Optional global fallback positive prompt.
+
+Per-segment prompt resolution is:
+
+1. `loop_config["prompt"].strip()`
+2. `positive_prompt`
+3. empty string
+
+### `negative_prompt`
+
+Optional global negative prompt applied to every segment.
+
+### `loop_1` through `loop_10`
+
+Up to ten segment config inputs. Only connected configs run.
+
+The node does not use a separate `num_loops` input. The active loop count is derived from however many `loop_n` inputs are connected.
+
+## `Wan Loop Config SVI`
+
+This companion node builds one per-segment config object.
+
+Required inputs:
+
+- `prompt`
+- `frames`
+
+Optional inputs:
+
+- `model_high`
+- `model_low`
+- `anchor_image`
+
+### `prompt`
+
+Positive prompt for that segment.
+
+### `frames`
+
+Target frame count for that segment before trimming/stitching.
+
+Default:
+
+- `49`
+
+### `model_high` / `model_low`
+
+Optional per-segment model overrides. If connected, they replace the main node's global `model_high` and `model_low` for that segment only.
+
+### `anchor_image`
+
+Optional per-segment explicit anchor override.
+
+This has the highest anchor precedence for that segment.
+
+Actual behavior when present:
+
+- the explicit image is resized to `width` and `height`
+- that resized image becomes the anchor for the current segment
+- it also replaces `scheduled_anchor_image`
+
+That last point matters:
+
+- in `keyframe_schedule`, an explicit `anchor_image` immediately resets the scheduled anchor baseline
+- in `dynamic_every_segment`, it overrides the current segment and also updates the scheduled anchor state, though the next segment will still use the dynamic extracted anchor path unless another explicit override appears
+
+## Actual anchor precedence
+
+For each segment, the current code chooses anchors in this order:
+
+1. explicit `anchor_image` from that segment's config
+2. `dynamic_every_segment` rolling anchor from the previous segment
+3. `keyframe_schedule` scheduled anchor
+4. original resized `start_image`
+
+That means `anchor_mode` does not override an explicit segment anchor. The explicit anchor always wins.
+
+## Stitching and save behavior
+
+After sampling and decode, the node:
+
+1. extracts the anchor frame
+2. optionally color-corrects it
+3. chooses `decoded_for_stitch` based on `stitch_mode`
+4. optionally removes leading frames with `startup_trim`
+5. optionally overlap-blends with the previous segment
+6. saves the current segment frames to a temp `.pt` file
+
+Important current detail from the overlap fix:
+
+- when overlap blending is used, the node reloads the previous segment from disk before trimming its tail
+- this preserves any already-blended head frames from the segment before it
+
+That bug fix is one of the reasons older docs can be misleading here.
 
 ## Outputs
 
-### `full_video` (IMAGE)
-All segments concatenated with overlap blending applied. Ready to feed into `VHS_VideoCombine` or similar.
+### `full_video` (`IMAGE`)
 
-### `last_anchor` (IMAGE)
-The anchor frame extracted from the final segment. Can be used as `start_image` for a subsequent looper node or for inspection.
+The final concatenated frame batch assembled from the saved segment tensors.
 
-### `used_prompts` (STRING)
-Log of which prompt was used for each segment, with frame counts. Connect to `ShowText` for visibility.
+### `last_extracted_anchor` (`IMAGE`)
 
----
+The processed anchor extracted from the final segment. This is the current output name; older docs may call it `last_anchor`.
 
-## Node: SVI Loop Config (`LoopConfigSVI`)
+### `All Segment Prompts` (`STRING`)
 
-Companion node — one per segment.
+A newline-joined prompt log in the format:
 
-### `prompt` (STRING, multiline)
-The positive prompt for this segment. If empty, falls back to the global `positive_prompt` on the main looper node.
+`Segment N (Xf): prompt text`
 
-### `frames` (INT, default 49)
-Number of frames to generate for this segment. 49 is standard for WAN 2.2 (maps to 13 temporal latent slots at stride 4).
+## Logging and temp files
 
-### `model_high` / `model_low` (MODEL, optional)
-Per-segment model overrides. Wire any LoRA stack upstream and feed the result here. If not connected, uses the global models from the main looper node.
+The node writes segment `.pt` files into a temporary directory under ComfyUI's temp directory when available.
 
-**Important:** The override model must include the full chain — SVI Pro LoRA + LightX2V + shift + your creative LoRA. Use Set/Get nodes to branch from the main model chain after shift is applied, then add your per-segment LoRA on top.
+You should see a log line like:
 
-```
-Main chain: GGUF → SVI Pro → LightX2V → Shift → Set_model_high → [main looper input]
-                                                       ↓
-Per-segment: Get_model_high → Creative LoRA → SVI Loop Config model_high
-```
+`[WanLooperNative] Segment temp dir: /data/app/temp/wan_native_xxxxxxxx`
+
+This is especially relevant on hosted environments where `/tmp` may be too small.
+
+Other useful logs include:
+
+- selected anchor mode, stitch mode, and seed mode
+- chosen anchor source for each segment
+- extracted anchor frame index
+- overlap stitch parameters
+- saved frame counts per segment
+
+## Recommended current baseline
+
+The code defaults and the audit-tested baseline are not identical.
+
+Current code defaults:
+
+- `seed_mode = fixed`
+- `anchor_mode = fixed_initial`
+- `stitch_mode = workflow_style`
+- `anchor_frame_offset = -5`
+- `overlap = 5`
+- `startup_trim = 0`
+- `overlap_mode = linear_blend`
+- `overlap_side = source`
+- `color_correction = false`
+
+Audit-confirmed strong baseline for seam quality and chain stability:
+
+- `seed_mode = fixed`
+- `overlap = 5`
+- `startup_trim = 5`
+- `anchor_mode = fixed_initial`
+- `stitch_mode = workflow_style`
+- `anchor_frame_offset = -5`
+
+Use the defaults as the UI baseline, not as proof that every default is the best tested setting.
+
+## Docs to trust versus docs to treat as historical
+
+Most reliable current sources:
+
+- `nodes_wan_v2.py`
+- `README.md`
+- `docs/briefs/2026-04-18_audit_complete.md`
+
+Useful but historical:
+
+- older design briefs in `docs/briefs/`
+- architecture plans in `docs/superpowers/`
+- archived code in `docs/archive/`
+
+If this doc and an older brief disagree, trust the code first.
