@@ -17,7 +17,7 @@ Still considered pre-release; widgets and defaults may change.
 
 Two nodes ship in this repo:
 
-- **`Wan Loop Config SVI`** — per-segment configuration (prompt, frame count, optional per-segment model override).
+- **`Wan Loop Config SVI`** — per-segment configuration (prompt, frame count, optional per-segment model override, optional per-segment anchor image override).
 - **`Wan Looper SVI`** — the loop driver itself. Consumes a chain of Loop Config inputs, handles anchor frame extraction, SVI Pro conditioning, sampling, VAE decode, overlap stitching, and final video assembly.
 
 Both nodes retain backward-compatibility aliases (`LoopConfigSVI`, `SVILooperNative`) so existing workflow JSONs that reference the older names continue to load.
@@ -29,12 +29,26 @@ Key design points of the SVI path:
 - `anchor_frame_offset` for controlling which frame of segment N becomes segment N+1's starting image
 - `overlap` and `startup_trim` widgets for seam handling
 - keyframe scheduling support via comma-separated segment schedules
+- optional per-segment `anchor_image` injection via the config node
 - KJNodes-backed SVI conditioning and overlap — real class calls, not inline approximations
 
-Defaults (as of the most recent audit commit):
+Current code defaults:
 
 - `seed_mode = fixed` — using a single shared seed across all segments. `increment_per_segment` was removed after it was found to cause compounding identity drift at longer chain lengths.
-- `overlap = 5`, `startup_trim = 5`, `linear_blend`, `anchor_frame_offset = -5`.
+- `anchor_mode = fixed_initial`
+- `stitch_mode = workflow_style`
+- `overlap = 5`, `startup_trim = 0`, `overlap_mode = linear_blend`, `anchor_frame_offset = -5`
+
+Audit-tested strong baseline:
+
+- `seed_mode = fixed`
+- `anchor_mode = fixed_initial`
+- `stitch_mode = workflow_style`
+- `overlap = 5`
+- `startup_trim = 5`
+- `anchor_frame_offset = -5`
+
+For the current parameter contract and behavior details, including `anchor_mode`, explicit `anchor_image` precedence, and stitch ordering, see [`docs/SVI_Looper_Native_Reference.md`](docs/SVI_Looper_Native_Reference.md).
 
 ## Dependencies
 
@@ -48,7 +62,7 @@ Runtime:
 
 Recommended model and LoRA stack (not bundled):
 
-- Wan 2.2 I2V A14B Q5_K_M GGUF (HighNoise + LowNoise split)
+- Wan 2.2 I2V models, including either GGUF split variants or FP8 checkpoints depending on your hardware and workflow
 - `umt5_xxl_fp8_e4m3fn_scaled.safetensors` text encoder
 - `wan_2.1_vae.safetensors` VAE
 - SVI Pro v2 HIGH/LOW LoRAs (temporal consistency)
@@ -60,10 +74,20 @@ Recommended model and LoRA stack (not bundled):
 2. Make sure KJNodes is installed and importable.
 3. Copy `examples/example_start_image.png` into your `ComfyUI/input/` folder so the example workflow can find it.
 4. Restart ComfyUI.
-5. Load `workflows/ComfyUI-WanLooper_example_workflow.json` as a starting point. The preview PNG alongside it shows the expected node layout.
-6. Run it, or swap in your own start image and per-segment prompts.
+5. Load `workflows/ComfyUI-WanLooper_example_workflow.json` as a starting point.
+6. Use `workflows/ComfyUI-WanLooper_example_workflow.png` as the visual layout reference for that workflow.
+7. Run it, or swap in your own start image and per-segment prompts.
 
-The `examples/` directory also includes a sample output MP4 (`2026-04-19_WanLooper_testing_00001.mp4`) showing what the workflow produces.
+## Workflows and examples
+
+The repo includes a small set of orientation files meant to be used together:
+
+- `workflows/ComfyUI-WanLooper_example_workflow.json` — the example workflow you can load directly into ComfyUI
+- `workflows/ComfyUI-WanLooper_example_workflow.png` — preview image showing the expected graph layout
+- `examples/example_start_image.png` — the start image expected by the example workflow
+- `examples/2026-04-19_WanLooper_testing_00001.mp4` — sample output clip produced from the example setup
+
+If you are trying to understand what the example workflow is supposed to look like before loading it, check the workflow PNG first. If you are trying to understand what kind of result the repo is aiming for, check the sample MP4.
 
 ## Known characteristics
 
@@ -73,6 +97,7 @@ The `examples/` directory also includes a sample output MP4 (`2026-04-19_WanLoop
 
 ## Further reading
 
+- [`docs/SVI_Looper_Native_Reference.md`](docs/SVI_Looper_Native_Reference.md) — current settings and behavior reference for the shipping SVI nodes, including `anchor_mode`, `stitch_mode`, per-segment `anchor_image`, and stitch ordering.
 - [`docs/briefs/2026-04-18_audit_complete.md`](docs/briefs/2026-04-18_audit_complete.md) — Summary of the most recent architecture audit, the two bugs found and fixed, and what was confirmed sound.
 
 Older markdown briefs in `docs/briefs/` are historical working documents and may not reflect current architecture.
