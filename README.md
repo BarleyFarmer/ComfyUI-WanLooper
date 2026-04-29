@@ -60,6 +60,16 @@ Runtime:
   - `ScheduledCFGGuidance`
   - `ImageBatchExtendWithOverlap`
 
+Advanced workflow extras:
+
+- **[VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite)** — used for video combine/output nodes.
+- **[ComfyUI-Frame-Interpolation](https://github.com/Fannovel16/ComfyUI-Frame-Interpolation)** — used by the optional `RIFE VFI` interpolation path. The advanced workflow is configured for `rife49.pth`.
+- **[ComfyUI-PromptSegmentSelector](https://github.com/BarleyFarmer/ComfyUI-PromptSegmentSelector)** — used to route per-segment prompt text into the Loop Config nodes.
+- **[rgthree-comfy](https://github.com/rgthree/rgthree-comfy)** — used only for bookmark/navigation helper nodes.
+- **[ComfyUI Essentials](https://github.com/cubiq/ComfyUI_essentials)** — used for `GetImageSize+` utility nodes.
+
+These extras are only needed to load the advanced example as authored. The core `Wan Looper SVI` node itself requires KJNodes, but not RIFE, rgthree, Prompt Segment Selector, or VideoHelperSuite.
+
 Recommended model and LoRA stack (not bundled):
 
 - Wan 2.2 I2V models, including either GGUF split variants or FP8 checkpoints depending on your hardware and workflow
@@ -75,19 +85,21 @@ Recommended model and LoRA stack (not bundled):
 3. Copy `examples/example_start_image.png` into your `ComfyUI/input/` folder so the example workflow can find it.
 4. Restart ComfyUI.
 5. Load `workflows/ComfyUI-WanLooper_example_workflow.json` as a starting point.
-6. Use `workflows/ComfyUI-WanLooper_example_workflow.png` as the visual layout reference for that workflow.
-7. Run it, or swap in your own start image and per-segment prompts.
+6. For a larger annotated setup, load `workflows/ComfyUI-WanLooper_example_workflow_advanced.json` after installing the advanced workflow extras above.
+7. Use `workflows/ComfyUI-WanLooper_example_workflow.png` as the visual layout reference for the basic workflow.
+8. Run it, or swap in your own start image and per-segment prompts.
 
 ## Workflows and examples
 
 The repo includes a small set of orientation files meant to be used together:
 
 - `workflows/ComfyUI-WanLooper_example_workflow.json` — the example workflow you can load directly into ComfyUI
+- `workflows/ComfyUI-WanLooper_example_workflow_advanced.json` — an annotated multi-segment workflow with prompt routing, bookmarks, and optional RIFE frame interpolation
 - `workflows/ComfyUI-WanLooper_example_workflow.png` — preview image showing the expected graph layout
 - `examples/example_start_image.png` — the start image expected by the example workflow
 - `examples/2026-04-19_WanLooper_testing_00001.mp4` — sample output clip produced from the example setup
 
-If you are trying to understand what the example workflow is supposed to look like before loading it, check the workflow PNG first. If you are trying to understand what kind of result the repo is aiming for, check the sample MP4.
+If you are trying to understand what the basic example workflow is supposed to look like before loading it, check the workflow PNG first. If you are trying to understand what kind of result the repo is aiming for, check the sample MP4. The advanced workflow includes embedded markdown notes for its non-obvious settings and optional helper nodes.
 
 ## Known characteristics
 
