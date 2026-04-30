@@ -99,7 +99,8 @@ The repo includes a small set of orientation files meant to be used together:
 - `workflows/ComfyUI-WanLooper_example_workflow.png` — preview image showing the expected graph layout
 - `workflows/ComfyUI-WanLooper_example_workflow_advanced.png` — preview image showing the advanced graph layout
 - `examples/example_start_image.png` — the start image expected by the example workflow
-- `examples/2026-04-19_WanLooper_testing_00001.mp4` — sample output clip produced from the example setup
+- `examples/2026-04-19_WanLooper_testing_00001-basic.mp4` — sample output clip produced from the basic workflow
+- `examples/2026-04-29_WanLooper_testing_00002-advanced.mp4` — sample output clip produced from the advanced workflow
 
 If you are trying to understand what the basic example workflow is supposed to look like before loading it, check the workflow PNG first. If you are trying to understand what kind of result the repo is aiming for, check the sample MP4. The advanced workflow includes embedded markdown notes for its non-obvious settings and optional helper nodes.
 
