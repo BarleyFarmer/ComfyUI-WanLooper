@@ -1,8 +1,8 @@
 {
   "id": "0ddeb6ff-ed7b-4bdc-a67a-ee345285b1f3",
   "revision": 0,
-  "last_node_id": 7195,
-  "last_link_id": 10310,
+  "last_node_id": 7198,
+  "last_link_id": 10312,
   "nodes": [
     {
       "id": 3,
@@ -16,7 +16,7 @@
         60
       ],
       "flags": {},
-      "order": 60,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -139,7 +139,7 @@
         60
       ],
       "flags": {},
-      "order": 58,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -184,7 +184,7 @@
         270
       ],
       "flags": {},
-      "order": 46,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -220,7 +220,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 47,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -331,7 +331,7 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "Ultra-realistic cinematic video, soft natural light, continuous fluid motion, \nfixed camera, stable framing, sharp focus, professional cinematography, \nsmooth body mechanics, 24fps feel."
+        "Ultra-realistic cinematic fashion and fitness portrait video, soft natural studio light, neutral indoor wall background, black athletic outfit, long loose blonde hair, stable medium framing, subtle handheld micro-sway, sharp focus, natural skin texture, smooth body mechanics, 24fps feel."
       ]
     },
     {
@@ -382,7 +382,7 @@
         330
       ],
       "flags": {},
-      "order": 35,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -434,8 +434,8 @@
         "Node name for S&R": "ImageResizeKJv2"
       },
       "widgets_values": [
-        960,
-        960,
+        528,
+        704,
         "lanczos",
         "crop",
         "0, 0, 0",
@@ -458,7 +458,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 56,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -506,7 +506,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 57,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -544,7 +544,7 @@
       "id": 6908,
       "type": "PreviewImage",
       "pos": [
-        735,
+        750,
         -870
       ],
       "size": [
@@ -552,7 +552,7 @@
         300
       ],
       "flags": {},
-      "order": 65,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -582,7 +582,7 @@
         420
       ],
       "flags": {},
-      "order": 25,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -622,7 +622,7 @@
         1260
       ],
       "flags": {},
-      "order": 62,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -781,7 +781,7 @@
         1,
         "euler",
         "simple",
-        249955006630855,
+        254660604319232,
         "randomize",
         "fixed",
         5,
@@ -807,7 +807,7 @@
         60
       ],
       "flags": {},
-      "order": 59,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -847,7 +847,7 @@
         60
       ],
       "flags": {},
-      "order": 61,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -887,7 +887,7 @@
         1860
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -975,7 +975,7 @@
         "cnr_id": "comfyui_fearnworksnodes"
       },
       "widgets_values": [
-        "Camera: three quarter front side view, shot with gentle handheld sway and subtle stabilization drift, as if a human is filming.  \nAction: The energetic young woman influencer is standing in a beautiful outdoor wilderness setting, smiling brightly at the camera while talking excitedly to her vlog audience. She gestures with her hands and shifts her weight playfully.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: The influencer grabs the sides of her hiking pack straps with both hands as she steps forward energetically. Her body moves with every step, long hair in pigtails bouncing naturally. She speaks directly to the camera with wide excited eyes and an open smile.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: She continues walking forward while talking animatedly, gesturing with her hands. Her body rocks naturally with each step, pigtails swinging. She maintains strong eye contact with the camera, her expression full of joy and enthusiasm.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter side view transitioning to three quarter front side view.  \nAction: The influencer turns slightly toward the camera while walking, speaking with growing excitement. Her head tilts playfully, long pigtails swinging with each movement. She keeps looking back toward the viewer with a bright, happy smile.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: She walks with more energy, stepping over small terrain. Her body moves dynamically with each step, arms gesturing expressively. She maintains eye contact with the camera, smiling widely as she shares her adventure.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: Her movements become more urgent and joyful as she picks up the pace. She laughs and speaks louder, her expression shifting to pure delight as she stares at the camera. Pigtails bounce with every step.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: The pace quickens dramatically. She does a small excited hop and spin while walking, pigtails flying. She speaks passionately with an open smile, eyes locked on the camera in pure adventure joy.  \n---\nCamera: Slightly shaky handheld shot with natural sway, three quarter front side view.  \nAction: She reaches a peak moment of excitement, throwing her arms up in celebration while still walking and talking to the camera. Her body moves with high energy, face glowing with happiness and wonder as she shares her wild vlog moment.",
+        "Camera: Stable medium portrait framing, straight-on with a slight three quarter angle, soft natural studio light, gentle handheld micro-sway.  \nAction: The blonde woman stands against a neutral indoor wall in a black athletic crop top and high-waisted leggings. Her layered silver necklace, navel piercing, loose wavy hair, and forearm tattoo remain visible. She looks directly into the camera with calm confidence, breathing naturally and shifting her weight slightly.  \n---\nCamera: Subtle handheld portrait shot, same indoor studio background, steady waist-up composition.  \nAction: Her expression softens into a faint smile. She raises one hand near her collarbone and lightly adjusts a strand of loose blonde hair while keeping eye contact with the camera. The necklace catches the light as her shoulders relax.  \n---\nCamera: Gentle natural sway, straight-on portrait view with slight stabilization drift.  \nAction: She begins speaking quietly to the camera, making small expressive hand gestures near her waist. Her black athletic outfit stays crisp against the simple gray wall, and her loose hair moves softly around her face.  \n---\nCamera: Slow three quarter side turn, then easing back toward the front, controlled studio framing.  \nAction: She turns her torso slightly, showing the curve of her shoulder and the tattoo on her forearm, then looks back to the viewer. Her face brightens with a confident smile and her hair swings naturally with the turn.  \n---\nCamera: Stable medium shot with a small push-in feeling, soft indoor light, shallow portrait depth.  \nAction: She takes a small step closer and continues speaking with relaxed energy. One hand rests briefly near her hip while the other gestures naturally, preserving the jewelry, black outfit, and loose blonde hair from the start image.  \n---\nCamera: Slightly more animated handheld sway while keeping the neutral studio wall and front-facing portrait composition.  \nAction: She laughs softly, tilts her head, and brushes her hair back from one side of her face. Her expression becomes warmer and more playful, with direct eye contact and smooth natural body movement.  \n---\nCamera: Three quarter front portrait, subtle stabilization drift, natural light on her face and hair.  \nAction: She shifts into a confident fashion-fitness pose, shoulders back and chin slightly lifted. Her hands move briefly to frame her waist before relaxing again, necklace and navel piercing glinting as she smiles at the camera.  \n---\nCamera: Clean front-facing medium portrait, gentle handheld finish, steady indoor studio framing.  \nAction: She ends with a bright confident smile, holding eye contact with the viewer. Her loose blonde hair settles over her shoulders, tattoo visible at her side, black athletic outfit unchanged, calm studio portrait energy preserved.",
         "---"
       ]
     },
@@ -991,7 +991,7 @@
         60
       ],
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1029,7 +1029,7 @@
         60
       ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1067,7 +1067,7 @@
         210
       ],
       "flags": {},
-      "order": 39,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -1129,7 +1129,7 @@
         210
       ],
       "flags": {},
-      "order": 36,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -1191,7 +1191,7 @@
         210
       ],
       "flags": {},
-      "order": 41,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -1253,7 +1253,7 @@
         210
       ],
       "flags": {},
-      "order": 38,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -1315,7 +1315,7 @@
         210
       ],
       "flags": {},
-      "order": 50,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -1377,7 +1377,7 @@
         210
       ],
       "flags": {},
-      "order": 43,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -1439,7 +1439,7 @@
         210
       ],
       "flags": {},
-      "order": 40,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -1501,7 +1501,7 @@
         210
       ],
       "flags": {},
-      "order": 42,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -1555,23 +1555,23 @@
       "id": 7064,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -900,
-        -2850
+        -910,
+        -2640
       ],
       "size": [
-        330,
+        390,
         90
       ],
       "flags": {
         "collapsed": false
       },
-      "order": 34,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 10110
+          "link": 10312
         }
       ],
       "outputs": [
@@ -1597,7 +1597,7 @@
         }
       },
       "widgets_values": [
-        "SVI/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
+        "Wan\\SVI\\SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
         0.95
       ],
       "color": "#033550",
@@ -1608,17 +1608,17 @@
       "id": 7065,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -900,
-        -2670
+        -910,
+        -2490
       ],
       "size": [
-        330,
+        390,
         90
       ],
       "flags": {
         "collapsed": false
       },
-      "order": 45,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -1650,7 +1650,7 @@
         }
       },
       "widgets_values": [
-        "LightX/lightx2v_I2V_14B_480p_cfg_step_distill_rank128_bf16.safetensors",
+        "Wan\\LightX\\lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
         1
       ],
       "color": "#033550",
@@ -1661,8 +1661,8 @@
       "id": 7070,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -1320,
-        -2670
+        -1360,
+        -2490
       ],
       "size": [
         390,
@@ -1671,7 +1671,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 44,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -1703,7 +1703,7 @@
         }
       },
       "widgets_values": [
-        "LightX/Wan_2_2_I2V_A14B_HIGH_lightx2v_4step_lora_v1030_rank_64_bf16.safetensors",
+        "Wan\\LightX\\Wan_2_2_I2V_A14B_HIGH_lightx2v_4step_lora_v1030_rank_64_bf16.safetensors",
         1
       ],
       "color": "#033550",
@@ -1713,8 +1713,8 @@
       "id": 7071,
       "type": "DiffusionModelLoaderKJ",
       "pos": [
-        -1320,
-        -3120
+        -1360,
+        -2940
       ],
       "size": [
         390,
@@ -1723,8 +1723,8 @@
       "flags": {
         "collapsed": false
       },
-      "order": 8,
-      "mode": 0,
+      "order": 9,
+      "mode": 4,
       "inputs": [
         {
           "name": "extra_state_dict",
@@ -1737,9 +1737,7 @@
         {
           "name": "MODEL",
           "type": "MODEL",
-          "links": [
-            10122
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -1774,18 +1772,18 @@
       "id": 7072,
       "type": "DiffusionModelLoaderKJ",
       "pos": [
-        -900,
-        -3120
+        -910,
+        -2940
       ],
       "size": [
-        330,
+        390,
         210
       ],
       "flags": {
         "collapsed": false
       },
-      "order": 9,
-      "mode": 0,
+      "order": 26,
+      "mode": 4,
       "inputs": [
         {
           "name": "extra_state_dict",
@@ -1798,9 +1796,7 @@
         {
           "name": "MODEL",
           "type": "MODEL",
-          "links": [
-            10110
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -1835,8 +1831,8 @@
       "id": 7078,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -1320,
-        -2850
+        -1360,
+        -2640
       ],
       "size": [
         390,
@@ -1845,13 +1841,13 @@
       "flags": {
         "collapsed": false
       },
-      "order": 33,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 10122
+          "link": 10311
         }
       ],
       "outputs": [
@@ -1877,7 +1873,7 @@
         }
       },
       "widgets_values": [
-        "SVI/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
+        "Wan\\SVI\\SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
         0.95
       ],
       "color": "#033550",
@@ -1887,8 +1883,8 @@
       "id": 7079,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -1320,
-        -2520
+        -1360,
+        -2310
       ],
       "size": [
         390,
@@ -1897,7 +1893,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 51,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -1939,17 +1935,17 @@
       "id": 7080,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        -900,
-        -2520
+        -910,
+        -2310
       ],
       "size": [
-        330,
+        390,
         90
       ],
       "flags": {
         "collapsed": false
       },
-      "order": 52,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -2000,7 +1996,7 @@
         210
       ],
       "flags": {},
-      "order": 32,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2138,7 +2134,7 @@
         210
       ],
       "flags": {},
-      "order": 29,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2272,7 +2268,7 @@
         210
       ],
       "flags": {},
-      "order": 31,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2404,7 +2400,7 @@
         210
       ],
       "flags": {},
-      "order": 30,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2536,7 +2532,7 @@
         300
       ],
       "flags": {},
-      "order": 63,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -2601,7 +2597,7 @@
         210
       ],
       "flags": {},
-      "order": 37,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -2760,7 +2756,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 16,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2785,7 +2781,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 20,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2810,7 +2806,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 11,
+      "order": 13,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2835,7 +2831,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 12,
+      "order": 14,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2860,7 +2856,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 48,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -2900,7 +2896,7 @@
         60
       ],
       "flags": {},
-      "order": 13,
+      "order": 15,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2933,7 +2929,7 @@
         390
       ],
       "flags": {},
-      "order": 26,
+      "order": 16,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2973,7 +2969,7 @@
         330
       ],
       "flags": {},
-      "order": 49,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3189,7 +3185,7 @@
         60
       ],
       "flags": {},
-      "order": 14,
+      "order": 17,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3222,7 +3218,7 @@
         1230
       ],
       "flags": {},
-      "order": 27,
+      "order": 18,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3238,15 +3234,15 @@
       "id": 7182,
       "type": "MarkdownNote",
       "pos": [
-        -4380,
-        -1920
+        -4770,
+        -2100
       ],
       "size": [
-        510,
-        750
+        870,
+        900
       ],
       "flags": {},
-      "order": 21,
+      "order": 31,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3256,7 +3252,7 @@
         "source_note_type": "Note"
       },
       "widgets_values": [
-        "# Resolutions\n\nWan 2.2 I2V A14B officially targets two area tiers:\n\n## Official 480P tier\n\n- `832x480` landscape\n- `480x832` portrait\n\n## Official 720P tier\n\n- `1280x720` landscape\n- `720x1280` portrait\n\nFor I2V, Wan's official inference treats size as an area target; the output aspect ratio follows the input image. In ComfyUI workflows that expose exact `width` / `height`, use multiples of 16 and stay near the 480P or 720P area tiers.\n\n## 1:1 / Square\n\nWan2.2 I2V does not list official square presets, but official I2V sizing preserves the input image aspect ratio while using the selected 480P or 720P area tier.\n\nGood ComfyUI square examples:\n\n- `624x624` near the official 480P area tier\n- `640x640` common practical square size, slightly above official 480P area\n- `960x960` square equivalent of the official 720P area tier\n"
+        "# Resolutions\n\n*These notes were written by an LLM, and I encourage you to experiment with resolutions and see what works best for you*\n\n\nWan 2.2 I2V A14B officially targets two area tiers:\n\n## Official 480P tier\n\n- `832x480` landscape\n- `480x832` portrait\n\n## Official 720P tier\n\n- `1280x720` landscape\n- `720x1280` portrait\n\nFor I2V, Wan's official inference treats size as an area target; the output aspect ratio follows the input image. In ComfyUI workflows that expose exact `width` / `height`, use multiples of 16 and stay near the 480P or 720P area tiers.\n\n## 3:4 / Portrait Photo\n\nWan2.2 I2V does not list official 3:4 presets, but this is a common portrait-photo aspect ratio. For I2V, preserving the start image aspect ratio is usually preferable to forcing the official 9:16 portrait preset.\n\nGood ComfyUI 3:4 examples:\n\n- `480x640` conservative 3:4 portrait size, lighter than the official 480P area tier\n- `528x704` balanced 3:4 portrait size, closer to the official 480P area tier\n- `720x960` 3:4 portrait size at a higher area, heavier than the official 480P tier but below square 720P area\n\n\n## 1:1 / Square\n\nWan2.2 I2V does not list official square presets, but official I2V sizing preserves the input image aspect ratio while using the selected 480P or 720P area tier.\n\nGood ComfyUI square examples:\n\n- `624x624` near the official 480P area tier\n- `640x640` common practical square size, slightly above official 480P area\n- `960x960` square equivalent of the official 720P area tier"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -3273,7 +3269,7 @@
         240
       ],
       "flags": {},
-      "order": 15,
+      "order": 19,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3300,7 +3296,7 @@
         330
       ],
       "flags": {},
-      "order": 19,
+      "order": 20,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3327,7 +3323,7 @@
         480
       ],
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3354,7 +3350,7 @@
         330
       ],
       "flags": {},
-      "order": 18,
+      "order": 22,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3373,15 +3369,15 @@
       "id": 7187,
       "type": "MarkdownNote",
       "pos": [
-        -510,
-        -2160
+        -450,
+        -2100
       ],
       "size": [
         360,
         210
       ],
       "flags": {},
-      "order": 23,
+      "order": 29,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3408,7 +3404,7 @@
         210
       ],
       "flags": {},
-      "order": 17,
+      "order": 23,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3462,7 +3458,7 @@
         480
       ],
       "flags": {},
-      "order": 28,
+      "order": 25,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3486,7 +3482,7 @@
         420
       ],
       "flags": {},
-      "order": 66,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -3511,7 +3507,7 @@
       "widgets_values": [
         null,
         null,
-        false
+        null
       ]
     },
     {
@@ -3523,10 +3519,10 @@
       ],
       "size": [
         480,
-        334
+        360
       ],
       "flags": {},
-      "order": 64,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -3592,10 +3588,10 @@
       ],
       "size": [
         510,
-        334
+        360
       ],
       "flags": {},
-      "order": 67,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -3651,6 +3647,117 @@
           "params": {}
         }
       }
+    },
+    {
+      "id": 7196,
+      "type": "UnetLoaderGGUF",
+      "pos": [
+        -1360,
+        -3090
+      ],
+      "size": [
+        390,
+        90
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 27,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            10311
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-gguf",
+        "ver": "d247022e3fa66851c5084cc251b076aab816423d",
+        "Node name for S&R": "UnetLoaderGGUF",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "Wan 2.2\\Wan2.2-I2V-A14B-HighNoise-Q5_K_M.gguf"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 7197,
+      "type": "UnetLoaderGGUF",
+      "pos": [
+        -910,
+        -3090
+      ],
+      "size": [
+        390,
+        90
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 28,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            10312
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-gguf",
+        "ver": "d247022e3fa66851c5084cc251b076aab816423d",
+        "Node name for S&R": "UnetLoaderGGUF",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "Wan 2.2\\Wan2.2-I2V-A14B-LowNoise-Q5_K_M.gguf"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 7198,
+      "type": "MarkdownNote",
+      "pos": [
+        -450,
+        -3100
+      ],
+      "size": [
+        360,
+        210
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "GGUF Model Loader",
+      "properties": {
+        "source_note_id": 7179,
+        "source_note_type": "Note"
+      },
+      "widgets_values": [
+        "- **[ComfyUI-GGUF](https://github.com/city96/ComfyUI-GGUF)** — used by the advanced workflow's active GGUF model loader path. The bypassed FP8/KJ diffusion loaders are included as an alternate path for users who prefer full checkpoint loading.\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -3919,14 +4026,6 @@
       "WAN_LOOP_CONFIG"
     ],
     [
-      10110,
-      7072,
-      0,
-      7064,
-      0,
-      "MODEL"
-    ],
-    [
       10111,
       7064,
       0,
@@ -3939,14 +4038,6 @@
       7078,
       0,
       7070,
-      0,
-      "MODEL"
-    ],
-    [
-      10122,
-      7071,
-      0,
-      7078,
       0,
       "MODEL"
     ],
@@ -4285,6 +4376,22 @@
       7195,
       0,
       "IMAGE"
+    ],
+    [
+      10311,
+      7196,
+      0,
+      7078,
+      0,
+      "MODEL"
+    ],
+    [
+      10312,
+      7197,
+      0,
+      7064,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [
@@ -4344,10 +4451,10 @@
       "id": 8,
       "title": "Models",
       "bounding": [
-        -1350,
+        -1410,
         -3210,
-        800.7431088791518,
-        1580.8272409012864
+        930,
+        1590
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -4374,8 +4481,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 9,
-          "lastNodeId": 7195,
-          "lastLinkId": 10310,
+          "lastNodeId": 7198,
+          "lastLinkId": 10312,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -4903,8 +5010,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 9,
-          "lastNodeId": 7195,
-          "lastLinkId": 10310,
+          "lastNodeId": 7198,
+          "lastLinkId": 10312,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -5432,8 +5539,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 9,
-          "lastNodeId": 7195,
-          "lastLinkId": 10310,
+          "lastNodeId": 7198,
+          "lastLinkId": 10312,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -5961,8 +6068,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 9,
-          "lastNodeId": 7195,
-          "lastLinkId": 10310,
+          "lastNodeId": 7198,
+          "lastLinkId": 10312,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -6490,8 +6597,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 9,
-          "lastNodeId": 7195,
-          "lastLinkId": 10310,
+          "lastNodeId": 7198,
+          "lastLinkId": 10312,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -7020,10 +7127,10 @@
   "extra": {
     "ue_links": [],
     "ds": {
-      "scale": 0.3186308177103567,
+      "scale": 0.15234039505310398,
       "offset": [
-        2688.646200960412,
-        1804.9821790455446
+        7690.00130231772,
+        4484.590443182186
       ]
     },
     "links_added_by_ue": [],
