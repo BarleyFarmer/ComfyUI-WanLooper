@@ -9,9 +9,9 @@ The loop runs inside a single custom node rather than across repeated ComfyUI su
 
 ## Status
 
-Working but unpolished, in use by the author. The core node (`Wan Looper SVI`) has been audited end-to-end for identity drift and seam quality across 3- and 6-segment chains. Output is comparable to a hand-wired chained-subgraph reference workflow built on the same models and LoRAs.
+Public experimental release, working but still unpolished. The core node (`Wan Looper SVI`) has been audited end-to-end for identity drift and seam quality across 3- and 6-segment chains. Output is comparable to a hand-wired chained-subgraph reference workflow built on the same models and LoRAs.
 
-Still considered pre-release; widgets and defaults may change.
+Interfaces, widgets, and defaults may still change as community testing broadens.
 
 ## Included nodes
 
@@ -112,6 +112,7 @@ If you are trying to understand what the basic example workflow is supposed to l
 
 ## Further reading
 
+- [`AGENTS.md`](AGENTS.md) — short handoff for coding agents, including the canonical files, current node names, and historical-doc caveats.
 - [`docs/SVI_Looper_Native_Reference.md`](docs/SVI_Looper_Native_Reference.md) — current settings and behavior reference for the shipping SVI nodes, including `anchor_mode`, `stitch_mode`, per-segment `anchor_image`, and stitch ordering.
 - [`docs/briefs/2026-04-18_audit_complete.md`](docs/briefs/2026-04-18_audit_complete.md) — Summary of the most recent architecture audit, the two bugs found and fixed, and what was confirmed sound.
 

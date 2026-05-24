@@ -1,0 +1,13 @@
+# Keep registry/ComfyUI-Manager installs focused on runtime assets.
+# These files remain useful in the GitHub repo, but are not needed by ComfyUI.
+.obsidian/
+.vscode/
+__pycache__/
+*.pyc
+
+docs/archive/
+docs/superpowers/
+docs/briefs/*.png
+docs/briefs/*_frames/
+
+examples/*.mp4

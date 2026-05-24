@@ -1,13 +1,20 @@
 [project]
-name = "comfyui-native-looper"
-description = "Multi-loop video generation with sharp output and character consistency"
+name = "wan-looper"
+description = "Multi-segment Wan 2.2 image-to-video looping nodes for ComfyUI"
 version = "1.0.0"
-license = "MIT"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Environment :: GPU :: NVIDIA CUDA",
+]
 
 [project.urls]
-Repository = "https://github.com/YOUR_USERNAME/ComfyUI-NativeLooper"
+Repository = "https://github.com/BarleyFarmer/ComfyUI-WanLooper"
+Documentation = "https://github.com/BarleyFarmer/ComfyUI-WanLooper/blob/master/docs/SVI_Looper_Native_Reference.md"
+"Bug Tracker" = "https://github.com/BarleyFarmer/ComfyUI-WanLooper/issues"
 
 [tool.comfy]
-PublisherId = ""
-DisplayName = "Native Looper"
+PublisherId = "BarleyFarmer"
+DisplayName = "Wan Looper"
 Icon = ""
