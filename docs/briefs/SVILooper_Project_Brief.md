@@ -1,6 +1,12 @@
 # SVILooper Project Brief
 **Date:** April 11, 2026  
-**Status:** Active Development — First Test Run Complete, Fixing WanImageMotion Padding Issue
+**Status:** Historical project-origin brief
+
+> **2026-04-17 status note:** This file captures the early Claude-era origin of the project and the reasoning that led away from the original IAMCCS-based SVI approach. It is still valuable context, but it no longer describes the current preferred architecture on its own.
+>
+> For the current repo state, read:
+> - [../../README.md](../../README.md)
+> - [2026-04-17_Codex_Takeover_Progress_Report.md](2026-04-17_Codex_Takeover_Progress_Report.md)
 
 ---
 

@@ -1,5 +1,12 @@
 # SVILooper — Claude Code Build Brief
-**Last updated: 2026-04-12**
+**Last updated: 2026-04-12**  
+**Status:** Historical Claude / Claude Code brief
+
+> **2026-04-17 status note:** This brief documents the Claude Code era in which `SVILooperKSA` became the active working path after the IAMCCS-driven approaches were abandoned. It should now be read as a historical handoff artifact rather than a complete description of the repo's current state.
+>
+> Current status lives in:
+> - [../../README.md](../../README.md)
+> - [2026-04-17_Codex_Takeover_Progress_Report.md](2026-04-17_Codex_Takeover_Progress_Report.md)
 
 ---
 

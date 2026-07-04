@@ -4,3 +4,6 @@ __pycache__/
 *.egg-info/
 .obsidian/
 .vscode/
+
+# WanLooper diagnostic frame renderings (not shipping content)
+docs/briefs/*_frames/

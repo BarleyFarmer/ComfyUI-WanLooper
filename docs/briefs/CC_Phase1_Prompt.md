@@ -1,5 +1,11 @@
 # Phase 1 Build: I2VLooperHL_v2
 
+> **2026-04-17 status note:** This file is a historical build prompt from the early Claude / Claude Code phase of the project. It documents the brief that produced the Phase 1 looper ideas, not the final current repo structure.
+>
+> For the current repo summary, read:
+> - [../../README.md](../../README.md)
+> - [2026-04-17_Codex_Takeover_Progress_Report.md](2026-04-17_Codex_Takeover_Progress_Report.md)
+
 ## Context
 You are working on ComfyUI custom nodes in `E:\AI_Studio\comfy-node-dev\ComfyUI-SVILooper\`.
 The install target is `E:\ComfyUI\ComfyUI\custom_nodes\ComfyUI-SVILooper\`.

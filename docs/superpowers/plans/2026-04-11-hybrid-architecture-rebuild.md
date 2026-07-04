@@ -1,5 +1,11 @@
 # SVILooper Hybrid Architecture Rebuild Implementation Plan
 
+> **2026-04-17 status note:** This plan is preserved as historical architecture work. The hybrid rebuild documented here was important to the project’s evolution, but it is no longer the primary release direction.
+>
+> Current preferred reading order:
+> - [../../../README.md](../../../README.md)
+> - [../../briefs/2026-04-17_Codex_Takeover_Progress_Report.md](../../briefs/2026-04-17_Codex_Takeover_Progress_Report.md)
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the monolithic `SVILooper` node with `SVILoopPrep` + `SVILoopFinish`, exposing Clownshark samplers and WaveSpeedAIPredictor as user-wired ComfyUI graph nodes between them.

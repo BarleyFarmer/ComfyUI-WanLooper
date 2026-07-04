@@ -1,5 +1,11 @@
 # Phase 2 Build: SVILooperNative
 
+> **2026-04-17 status note:** This is a historical prompt from the early native-SVI rebuild phase. It is still useful for understanding the intent behind the native path, but the current implementation has moved on from parts of this document, especially where the repo now depends directly on KJNodes' real SVI classes.
+>
+> For the current repo state, read:
+> - [../../README.md](../../README.md)
+> - [2026-04-17_Codex_Takeover_Progress_Report.md](2026-04-17_Codex_Takeover_Progress_Report.md)
+
 ## Context
 You are working on ComfyUI custom nodes in `E:\AI_Studio\comfy-node-dev\ComfyUI-SVILooper\`.
 The install target is `E:\ComfyUI\ComfyUI\custom_nodes\ComfyUI-SVILooper\`.

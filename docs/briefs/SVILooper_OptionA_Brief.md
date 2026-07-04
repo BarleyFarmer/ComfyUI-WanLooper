@@ -1,5 +1,15 @@
 # SVILooper Option A — Hybrid Architecture Rebuild Brief
 
+> **2026-04-17 status note:** This is an archived rebuild brief for the hybrid `SVILoopPrep` / `SVILoopFinish` architecture. That path remains useful project history, but it is no longer the preferred release direction.
+>
+> The repo now centers on:
+> - `Wan Looper SVI` as the primary path
+> - `Wan Looper KSA` as the simpler baseline path
+>
+> For the current handoff and progress summary, read:
+> - [../../README.md](../../README.md)
+> - [2026-04-17_Codex_Takeover_Progress_Report.md](2026-04-17_Codex_Takeover_Progress_Report.md)
+
 ## Working Directory
 `E:\AI_Studio\comfy-node-dev\ComfyUI-SVILooper\`
 
